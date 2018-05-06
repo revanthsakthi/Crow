@@ -1,3 +1,5 @@
+import heapq
+
 class Node(object):
     """
         Low level node representation

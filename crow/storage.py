@@ -22,6 +22,9 @@ class Storage(object):
     def get(self, key, default_value=None):
         raise NotImplementedError
 
+    def cleanse(self):
+        raise NotImplementedError
+
 class TempStore(Storage):
     def __init__(self, timeToLive=config.timeToLive):
         self.store = collections.OrderedDict()
@@ -41,8 +44,8 @@ class TempStore(Storage):
 
     def cleanse(self, seconds=config.timeToLive):
         minAge = time.monotonic() - seconds
-        itemsToDelete = len(list(filter(lambda entry: entry[0] >= minAge, self.store.values())))
-        for _ in range(itemsToDelete): self.store.popitem(last=False)
+        numOfExpiredItems = len(list(filter(lambda entry: entry[0] >= minAge, self.store.values())))
+        for _ in range(numOfExpiredItems): self.store.popitem(last=False)
 
     def get(self, key, default_value=None):
         if key in self.store: return self.store[key]
@@ -51,11 +54,7 @@ class TempStore(Storage):
     @property
     def items(self):
         self.cleanse()
-        return zip(
-            self.data.keys(),
-            map(operator.itemgetter(0), self.data.values)
-            map(operator.itemgetter(1), self.data.values)
-        )
+        return zip(self.data.keys(), map(operator.itemgetter(0), self.data.values), map(operator.itemgetter(1), self.data.values))
 
     def getLast(count=1000):
         reversed(self.items)[:count]
