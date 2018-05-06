@@ -1,6 +1,6 @@
 class RPC(object):
     def rpc_store(self, sender, node_id, key, value):
-        pass
+        
 
     def rpc_ping(self, sender, node_id):
         pass
