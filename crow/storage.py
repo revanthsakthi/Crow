@@ -60,7 +60,7 @@ class TempStore(Storage):
     @property
     def items(self):
         self.cleanse()
-        return zip(self.data.keys(), map(operator.itemgetter(0), self.data.values), map(operator.itemgetter(1), self.data.values))
+        return zip(self.store.keys(), map(operator.itemgetter(0), self.store.values()), map(operator.itemgetter(1), self.store.values()))
 
     def getLast(self, count=1000):
         reversed(self.items)[:count]
