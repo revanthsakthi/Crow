@@ -58,12 +58,21 @@ class TempStore(Storage):
         return default_value
 
     @property
-    def items(self):
+    def items(self): #Unused
         self.cleanse()
         return zip(self.store.keys(), map(operator.itemgetter(0), self.store.values()), map(operator.itemgetter(1), self.store.values()))
 
-    def getLast(self, count=1000):
-        reversed(self.items)[:count]
+
+    def getLast(self):
+        #start iterating self.store.values()
+        for i in self.store:
+            lastkey = i #the first iteration (also the last object put in the dict) is saved in lastkey
+            break       #and the for loop breaks
+        return [lastkey, self.store[lastkey]]
+        #example: ['t', (172627.625, 'e')]
+        # 't' is the key
+        # 172627.625 is the result of time.monotonic()
+        # 'e' is the value
 
     def printLast(self, count=1000):
         for entry in self.getLast(count):
