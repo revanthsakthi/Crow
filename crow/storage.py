@@ -39,7 +39,7 @@ class TempStore(Storage):
         else: #case key exists
             del self.store[key] #delete key
         finally: #after all (always execute)
-            self.store[key] = (time.monotonic, value) #set the new key
+            self.store[key] = (time.monotonic(), value) #set the new key
 
     def __getitem__(self, key):
         self.cleanse()
@@ -49,7 +49,7 @@ class TempStore(Storage):
         return iter(self.store)
 
     def cleanse(self, seconds=config.timeToLive):
-        minAge = time.monotonic() - seconds
+        minAge = time.monotonic() + seconds
         numOfExpiredItems = len(list(filter(lambda entry: entry[0] >= minAge, self.store.values())))
         for _ in range(numOfExpiredItems): self.store.popitem(last=False)
 
