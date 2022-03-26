@@ -4,14 +4,10 @@
 env/
 venv/
 
-# macOS
-
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
 
 # pyenv
 .python-version
