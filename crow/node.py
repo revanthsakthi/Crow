@@ -11,7 +11,7 @@ class Node(object):
 
     #uses XOR to determine the distance between each node
     def distanceToNode(self, target_node_id):
-        return self.node_id ^ self.target_node_id
+        return self.node_id ^ target_node_id
 
     # allow node state to be traversed as a tuple
     def __iter__(self):

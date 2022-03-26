@@ -56,9 +56,9 @@ class TempStore(Storage):
         self.cleanse()
         return zip(self.data.keys(), map(operator.itemgetter(0), self.data.values), map(operator.itemgetter(1), self.data.values))
 
-    def getLast(count=1000):
+    def getLast(self, count=1000):
         reversed(self.items)[:count]
 
-    def printLast(count=1000):
+    def printLast(self, count=1000):
         for entry in self.getLast(count):
             print("{0}: {2} - timeSinceCreated: {1}".format(entry[0], time.monotonic() - entry[1], entry[2]))
