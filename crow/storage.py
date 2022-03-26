@@ -2,30 +2,10 @@ import collections
 import time
 import operator
 
+#crow modules
 import config
 
 class Storage(object):
-    """
-        General storage interface
-    """
-    #Builtins Accessors
-    def __setitem__(self, key, value):
-        raise NotImplementedError
-
-    def __getitem__(self, key):
-        raise NotImplementedError
-
-    def __iter__(self):
-        raise NotImplementedError
-
-    #Special Accessors
-    def get(self, key, default_value=None):
-        raise NotImplementedError
-
-    def cleanse(self):
-        raise NotImplementedError
-
-class TempStore(Storage):
     def __init__(self, timeToLive=config.timeToLive):
         self.store = collections.OrderedDict()
         self.timeToLive = timeToLive
@@ -44,6 +24,7 @@ class TempStore(Storage):
     def __getitem__(self, key):
         self.cleanse()
         if key in self.store: return self.store[key][1]
+        else: raise KeyError
 
     def __iter__(self):
         return iter(self.store)

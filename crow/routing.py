@@ -17,8 +17,8 @@ class KBucket(object):
         self.ranges = (lowerRange, upperRange)
         self.k = k
 
-    def getNodes(self, nodes):
-        return nodes.values()
+    def getNodes(self):
+        return self.nodes.values()
 
     def removeNode(self, node_id):
         pass
