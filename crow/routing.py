@@ -1,7 +1,7 @@
 import heapq
 import time
-from collections import OrderedDict
 
+#crow modules
 import config
 
 class RoutingTable(object):
@@ -13,7 +13,7 @@ class RoutingTable(object):
 
 class KBucket(object):
     def __init__(self, lowerRange, upperRange, k=config.K):
-        self.nodes = OrderedDict()
+        self.nodes = dict()
         self.ranges = (lowerRange, upperRange)
         self.k = k
 
