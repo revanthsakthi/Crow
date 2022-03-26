@@ -74,6 +74,11 @@ class TempStore(Storage):
         # 172627.625 is the result of time.monotonic()
         # 'e' is the value
 
-    def printLast(self, count=1000):
-        for entry in self.getLast(count):
-            print("{0}: {2} - timeSinceCreated: {1}".format(entry[0], time.monotonic() - entry[1], entry[2]))
+    def printLast(self):
+        entry = self.getLast()
+        print("{0}: {1} - timeSinceCreated: {2}".format(
+            entry[0], #key
+            entry[1][1], #value
+            time.monotonic() - entry[1][0] #time in hash table
+            )
+        )
