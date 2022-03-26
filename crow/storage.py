@@ -32,8 +32,14 @@ class TempStore(Storage):
 
     def __setitem__(self, key, value):
         self.cleanse()
-        if self.store[key]: del self.store(key) #for updates
-        self.store[key] = (time.monotonic, value)
+        try: #If exists key in store
+            self.store[key]
+        except KeyError: #case key don't exists
+            pass
+        else: #case key exists
+            del self.store[key] #delete key
+        finally: #after all (always execute)
+            self.store[key] = (time.monotonic, value) #set the new key
 
     def __getitem__(self, key):
         self.cleanse()
